@@ -1,30 +1,63 @@
 <template>
-  <section class="product-detail">
-      <div class="container">
-          <div class="row justify-content-center"> 
-          <div class="col-lg-6">
-              <div class="product-image">
-                  <img :src="product.get_thumbnail" alt="">
-              </div>
-              <div class="product-name">
-                  <h1>{{product.name}}</h1>
-              </div>
-          </div>
-          <div class="col-lg-4 mt-5 pt-5">
-              <h2>Details</h2>
-              <p>{{product.price}}</p>
 
-              <div class="add-ons">
-                  <input type="text" min="1" class="form-control" v-model="quantity">
-                  <button class="btn btn-outline-white  ml-5 btn-success" @click="addToCart">Add to cart</button>
-              </div>
-          </div>
-      </div>
-      </div>
+  <section class="single-product">
+	<div class="container">
+	
+		<div class="row mt-20">
+			<div class="col-md-5">
+				<div class="single-product-slider">
+					<div id='caousel-custom' class='carousel slide' data-ride='carousel'>
+					
+						
+						<!-- thumb -->
+						<ol class='carousel-indicators mCustomScrollbar meartlab'>
+                            <div class='item'>
+									<img :src="product.get_thumbnail" alt='' data-zoom-image="images/shop/single-products/product-6.jpg" />
+								</div>
+						
+						</ol>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="single-product-details">
+					<h2>{{product.name}}</h2>
+					<p class="product-price">${{product.price}}</p>
+					
+					<p class="product-description mt-20">
+						{{product.description}}
+					</p>
+				
+	
+
+					<div class="product-quantity">
+						<span>Quantity:</span>
+						<div class="product-quantity-slider">
+							<input id="product-quantity" type="text"  name="product-quantity" v-model="quantity">
+						</div>
+					</div>
+					<div class="product-category">
+						<span>Categories:</span>
+						<ul>
+							<li><a>{{product.get_category}}</a></li>
+						</ul>
+					</div>
+					<a type="button" @click="addToCart" class="btn btn-main mt-20">Add To Cart</a>
+				</div>
+			</div>
+
+					
+								   
+							</div>
+						</div>
+
+        
+
   </section>
 </template>
 
 <script>
+import { toast } from 'bulma-toast'
 import axios from 'axios'
 export default {
     name:'Product',
@@ -38,9 +71,11 @@ export default {
         this.getProducts()
     },
     methods:{
-        getProducts(){
+        
+       async getProducts(){
+           this.$store.commit('setIsLoading', true)
             const product_slug = this.$route.params.slug
-            axios
+            await axios
                 .get(`store/product/desc/${product_slug}`)
                 .then(response => {
                     this.product = response.data
@@ -48,6 +83,7 @@ export default {
                 .catch(err => {
                     console.log(err.message)
                 })
+            this.$store.commit('setIsLoading', false)
         },
 
         addToCart(){
@@ -60,8 +96,20 @@ export default {
             quantity : this.quantity
         }
         this.$store.commit('addToCart', item)
+
+        toast({
+            message: 'The product was added to the cart succesfully',
+            type: 'is-success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'bottom-right',
+        })
+
         }
 
+        
+        
         
     }
 }
@@ -78,5 +126,12 @@ section{
 
 .add-ons .btn{
     padding:3px;
+}
+
+.product-image{
+    height: 100%;
+    width: 100%;
+    overflow-x:hidden;
+    margin-top: 200px;
 }
 </style>
