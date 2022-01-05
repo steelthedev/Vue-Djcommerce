@@ -194,6 +194,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data(){
     return{
@@ -207,6 +208,14 @@ export default {
 
   beforeCreate(){
     this.$store.commit('initializeStore')
+
+    const token = this.$store.state.token
+
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+        axios.defaults.headers.common['Authorization'] = ""
+    }
   },
   
     mounted(){
@@ -225,7 +234,11 @@ export default {
 }
 </script>
 <style>
- 
+
+
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500");
+
  :root{
     --main-color:#5e35b1;
     --color-dark:#1d2231;
@@ -270,75 +283,6 @@ body{
   height:0;
   color: red;
 }
-
-/**
- * WEBSITE: https://themefisher.com
- * TWITTER: https://twitter.com/themefisher
- * FACEBOOK: https://www.facebook.com/themefisher
- * GITHUB: https://github.com/themefisher/
- */
-
-@charset "UTF-8";
-/*------------------------------------------------------------------
-
-THEME: Aviato | E-commerce template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
-DEMO: https://demo.themefisher.com/aviato/
-GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
-
-
-
-/*------------------------------------------------------------------
-[Table of contents]
-
-1. Body
-	2. Header 
-		2.1. Navigation 
-		2.2. Menu 
-		2.3. Cart 
-	3. Banner
-		3.1 Revolution Slider
-	4. Products
-		4.1 Product Item
-		4.2 Single Product
-	5. Pricing
-	6. Clients
-	7. Instagram Feed 
-	8. User Dashboard
-		8.1 User Profile
-	9. Blog
-		9.1 Post
-		9.2 Post Pagination
-		9.3 Single Post
-		9.4 Post Sidebar
-	10. Backgrounds
-	11. Comming Soon
-	12. Account Page
-	13. Shopping
-		13.1 Checkout
-		13.2 Shopping Cart
-		13.3 Product Checkout Details
-		13.4 Purchase Confirmation
-		13.5 Empty Cart
-		13.6 Success Message
-	14.404 Page
-	15. Contact 
-		15.1  Contact Form 
-		15.2 Contact Details
-		15.3 Social Icons
-	16.Footer
-
-
--------------------------------------------------------------------*/
-/*=== MEDIA QUERY ===*/
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500");
 
 
 p {
@@ -406,15 +350,15 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .btn-main, .btn-small, .btn-transparent, .btn-solid-border {
-  background: #000;
-  color: #fff;
-  display: inline-block;
+  background: #000 !important;
+  color: #fff !important;
+  display: inline-block !important;
   font-size: 11px;
   letter-spacing: 1px;
   padding: 14px 35px;
   text-transform: uppercase;
   font-weight: 200;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 .btn-main.btn-icon i, .btn-icon.btn-small i, .btn-icon.btn-transparent i, .btn-icon.btn-solid-border i {
   font-size: 16px;
@@ -611,10 +555,10 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .page-header {
-  background: #f5f5f5;
-  margin-top: 20px;
-  border-bottom: none;
-  padding: 30px 0;
+  background: #f5f5f5 !important;
+  margin-top: 20px !important;
+  border-bottom: none !important;
+  padding: 30px 0 !important;
 }
 .page-header h1 {
   font-weight: 200;
@@ -660,7 +604,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .page-wrapper {
-  padding: 70px 0;
+  padding: 70px 0 !important;
 }
 
 .social-media-icons ul li {
@@ -1780,10 +1724,10 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 
 .post {
-  background: #fff;
-  margin-bottom: 40px;
-  border-bottom: 1px solid #dedede;
-  padding-bottom: 20px;
+  background: #fff !important;
+  margin-bottom: 40px !important;
+  border-bottom: 1px solid #dedede !important;
+  padding-bottom: 20px !important;
 }
 .post .post-media.post-thumb img {
   width: 100%;
@@ -2233,39 +2177,6 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   display: block;
 }
 
-.account .block {
-  background-color: #fff;
-  border: 1px solid #dedede;
-  padding: 30px;
-  margin: 100px 0;
-}
-.account .block .logo {
-  display: inline-block;
-}
-.account .block a {
-  color: #000;
-}
-.account .block h2 {
-  font-weight: 400;
-  font-size: 25px;
-  text-transform: uppercase;
-  margin-top: 40px;
-}
-.account .block form {
-  margin-top: 40px;
-}
-@media (max-width: 400px) {
-  .account .block form .btn-main, .account .block form .btn-solid-border, .account .block form .btn-transparent, .account .block form .btn-small {
-    padding: 14px 19px;
-  }
-}
-.account .block form p {
-  margin-bottom: 20px;
-}
-.account .block form input[type=email], .account .block form input[type=password], .account .block form input[type=text] {
-  border-radius: 0;
-  box-shadow: none;
-}
 
 .shopping .widget-title {
   font-weight: 400;

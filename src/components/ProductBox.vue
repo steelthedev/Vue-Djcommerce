@@ -22,7 +22,7 @@
 					</div>
 					<div class="product-content">
 						<h4>
-              <router-link :to="product.get_absolute_url" class="btn btn-transparent ">View Product</router-link>
+              <router-link :to="product.get_absolute_url" class="btn btn-transparent p-3 btn-outline-white">View Product</router-link>
             </h4>
 						<p class="price">${{product.price}}</p>
 					</div>

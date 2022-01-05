@@ -42,7 +42,7 @@
 							<li><a>{{product.get_category}}</a></li>
 						</ul>
 					</div>
-					<a type="button" @click="addToCart" class="btn btn-main mt-20">Add To Cart</a>
+					<a type="button" @click="addToCart" class="btn btn-main btn-dark mt-20">Add To Cart</a>
 				</div>
 			</div>
 
